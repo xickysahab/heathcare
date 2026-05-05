@@ -1,5 +1,25 @@
-venv/
-backend/venv/
+# Python
 __pycache__/
 *.pyc
-pyvenv.cfg
+*.pyo
+*.pyd
+*.sqlite3
+.env
+.env.*
+
+# Virtualenvs
+venv/
+.venv/
+env/
+backend/venv/
+backend/.venv/
+backend/bin/
+backend/lib/
+backend/include/
+backend/share/
+backend/pyvenv.cfg
+
+# Node
+node_modules/
+dist/
+build/
