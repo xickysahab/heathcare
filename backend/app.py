@@ -20,7 +20,7 @@ def create_app():
     if DATABASE_URL:
         # Fix for Render (postgres → postgresql)
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
-        app.config["SQLALCHEMY_DATABASE_URL"] = DATABASE_URL
+        app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 
     # Initialize Extensions
     db.init_app(app)
@@ -36,14 +36,16 @@ def create_app():
     def home():
         return {"message": "Healthcare API Running"}
 
+    # Create tables
+    with app.app_context():
+        db.create_all()
+
     return app
 
 
-# Run App
+# Create the global app instance for Gunicorn
+app = create_app()
+
+# Run App (Local Development)
 if __name__ == "__main__":
-    app = create_app()
-
-    with app.app_context():
-        db.create_all()   # create tables (for testing)
-
     app.run(host="0.0.0.0", port=5000, debug=True)
